@@ -2,22 +2,15 @@ package Exercicio02
 
 class Legumes() : ListaDeCompras() {
     private val listaLegumes = mutableSetOf<Legumes>()
-    private var contador = 0
 
     override fun inserirAlimento() {
         try {
             println("Informe o nome do Legume:")
             nomeAlimento = readln()
 
-            println("Informe a quantidade em Kg:")
+            println("Informe a quantidade em unidades:")
             qtdLegumes = readln().toInt()
-            contador++
-
-            val adicionarListaLegumes = Legumes()
-            adicionarListaLegumes.nomeAlimento = nomeAlimento
-            adicionarListaLegumes.qtdLegumes = qtdLegumes
-            listaLegumes.add(adicionarListaLegumes)
-
+            validarQtdAlimentos()
         } catch (ex: NumberFormatException) {
             println("Para legume, a quantidade deve ser informada em unidades inteiras")
         } catch (ex: UnsupportedOperationException) {
@@ -26,7 +19,20 @@ class Legumes() : ListaDeCompras() {
     }
 
     override fun validarQtdAlimentos() {
-        TODO("Not yet implemented")
+        when (qtdAlimento < 0) {
+            true -> {
+                println("Quantidade negativa não permitido. Digite novamente")
+                inserirAlimento()
+
+            }
+            false -> {
+                println("Alimento Registrado com sucesso")
+                val adicionarListaLegumes = Legumes()
+                adicionarListaLegumes.nomeAlimento = nomeAlimento
+                adicionarListaLegumes.qtdLegumes = qtdLegumes
+                listaLegumes.add(adicionarListaLegumes)
+            }
+        }
     }
 
 
@@ -35,7 +41,7 @@ class Legumes() : ListaDeCompras() {
         listaLegumes.forEach {
             println("${it.nomeAlimento} -> ${it.qtdLegumes} unidade")
         }
-        println("A quantidade de alimentos do tipo legumes a ser comprada é = $contador")
+        println("A quantidade de alimentos do tipo legumes a ser comprada é = ${listaLegumes.size}")
     }
 }
 

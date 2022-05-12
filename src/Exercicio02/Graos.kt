@@ -2,7 +2,6 @@ package Exercicio02
 
 class Graos : ListaDeCompras() {
     private val listaGraos = mutableListOf<Graos>()
-    private var contador = 0
 
     override fun inserirAlimento() {
         try {
@@ -11,12 +10,7 @@ class Graos : ListaDeCompras() {
 
             println("Informe a quantidade em Kg:")
             qtdAlimento = readln().toDouble()
-            contador++
-            val adicionarListaGraos = Graos()
-            adicionarListaGraos.nomeAlimento = nomeAlimento
-            adicionarListaGraos.qtdAlimento = qtdAlimento
-            listaGraos.add(adicionarListaGraos)
-
+            validarQtdAlimentos()
 
         } catch (ex: NumberFormatException) {
             println("Para grãos, a quantidade deve ser informada com ponto")
@@ -29,18 +23,24 @@ class Graos : ListaDeCompras() {
         when (qtdAlimento < 0) {
             true -> {
                 println("Quantidade negativa não permitido. Digite novamente")
-                qtdAlimento = readln().toDoubleOrNull()?: throw NumberFormatException()
+                inserirAlimento()
             }
-            false -> println("Alimento registrado com sucesso")
+            false -> {
+                println("Alimento registrado com sucesso")
+                val adicionarListaGraos = Graos()
+                adicionarListaGraos.nomeAlimento = nomeAlimento
+                adicionarListaGraos.qtdAlimento = qtdAlimento
+                listaGraos.add(adicionarListaGraos)
+            }
+
         }
     }
 
-
     override fun mostrarLista() {
-        println("|-------------------------------------* Lista de verduras *--------------------------------")
+        println("|-------------------------------------* Lista de Grãos *--------------------------------")
         listaGraos.forEach {
             println("${it.nomeAlimento} -> ${it.qtdAlimento}Kg")
         }
-        println("A quantidade de alimentos do tipo Grãos a ser comprada é = $contador")
+        println("A quantidade de alimentos do tipo Grãos a ser comprada é = ${listaGraos.size}")
     }
 }

@@ -1,10 +1,9 @@
 package Exercicio02
 
-
 class Verduras() : ListaDeCompras() {
 
     private val listaVerduras = mutableListOf<Verduras>()
-    private var contador = 0
+
 
     override fun inserirAlimento() {
         try {
@@ -14,12 +13,7 @@ class Verduras() : ListaDeCompras() {
 
             println("Informe a quantidade em Kg:")
             qtdAlimento = readln().toDoubleOrNull() ?: throw NumberFormatException()
-            contador++
-
-            val adicionarListaVerdura = Verduras()
-            adicionarListaVerdura.nomeAlimento = nomeAlimento
-            adicionarListaVerdura.qtdAlimento = qtdAlimento
-            listaVerduras.add(adicionarListaVerdura)
+            validarQtdAlimentos()
 
 
         } catch (ex: NumberFormatException) {
@@ -38,8 +32,11 @@ class Verduras() : ListaDeCompras() {
             }
             false -> {
                 println("Alimento Registrado com sucesso")
-                val menu = MenuListaCompras()
-                menu.adicionaisMaisAlimentos(Verduras())
+                val adicionarListaVerdura = Verduras()
+                adicionarListaVerdura.nomeAlimento = nomeAlimento
+                adicionarListaVerdura.qtdAlimento = qtdAlimento
+                listaVerduras.add(adicionarListaVerdura)
+
             }
         }
 
@@ -51,7 +48,7 @@ class Verduras() : ListaDeCompras() {
             println("${it.nomeAlimento} -> ${it.qtdAlimento}Kg")
 
         }
-        println("A quantidade de alimentos do tipo verdura a ser comprada é = $contador")
+        println("A quantidade de alimentos do tipo verdura a ser comprada é = ${listaVerduras.size}")
     }
 
 }

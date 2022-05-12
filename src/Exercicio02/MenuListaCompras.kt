@@ -43,17 +43,16 @@ class MenuListaCompras {
     }
 
 
-
     fun opcaoMenu() {
         try {
-            menu()
-            do {
 
+            do {
+                menu()
                 when (readln().toInt()) {
                     1 -> {
                         verduras.inserirAlimento()
-                        verduras.validarQtdAlimentos()
                         adicionaisMaisAlimentos(verduras)
+
                     }
                     2 -> {
                         legumes.inserirAlimento()
