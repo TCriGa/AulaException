@@ -1,12 +1,11 @@
 package Exercicio02
 
-class OutrosAlimentos :ListaDeCompras(){
+class OutrosAlimentos : ListaDeCompras() {
     private val listaOutrosAlimentos = mutableSetOf<OutrosAlimentos>()
     private var contador = 0
-    private var newAlimentos = 0
-    private var qtdOutrosAlimentos = 0
 
-    fun inserirOutrosAlimentos(): MutableSet<OutrosAlimentos> {
+
+    override fun inserirAlimento() {
         try {
             println("Informe o nome do Legume:")
             nomeAlimento = readln()
@@ -20,30 +19,17 @@ class OutrosAlimentos :ListaDeCompras(){
             adicionarOutrosAlimentos.qtdOutrosAlimentos = qtdOutrosAlimentos
             listaOutrosAlimentos.add(adicionarOutrosAlimentos)
 
-            adicionarMaisLegumes()
         } catch (ex: NumberFormatException) {
-            println(ex.message)
-        }catch (ex:UnsupportedOperationException){
+            println("Para outros, a quantidade deve ser informada em unidades inteiras")
+        } catch (ex: UnsupportedOperationException) {
             println("Não é permitido inserir valor vazio")
         }
-        return listaOutrosAlimentos
     }
 
-
-    private fun adicionarMaisLegumes() {
-        println("Deseja inserir mais Legumes? Digite 1- Sim/ 2- Não")
-        newAlimentos = readln().toInt()
-        if (newAlimentos == 1) {
-            inserirOutrosAlimentos()
-
-        } else if (newAlimentos == 2) {
-            MenuListaCompras().menu()
-        } else if (newAlimentos != 1 && newAlimentos != 2) {
-            println("Número inválido. Digite novamente")
-            println("Deseja inserir mais Legumes? Digite 1- Sim/ 2- Não")
-            newAlimentos = readln().toInt()
-        }
+    override fun validarQtdAlimentos() {
+        TODO("Not yet implemented")
     }
+
 
     override fun mostrarLista() {
         println("|-------------------------------------* Lista de Legumes *--------------------------------")

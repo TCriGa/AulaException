@@ -1,52 +1,49 @@
 package Exercicio02
 
+
 class Verduras() : ListaDeCompras() {
 
     private val listaVerduras = mutableListOf<Verduras>()
     private var contador = 0
-    private var newVerdura = 0
 
-    fun inserirVerduras(): MutableList<Verduras> {
+    override fun inserirAlimento() {
         try {
 
-                println("Informe o nome da Verdura:")
-                nomeAlimento = readln()
+            println("Informe o nome da Verdura:")
+            nomeAlimento = readln()
 
-                println("Informe a quantidade em Kg:")
-                qtdAlimento = readln().toDouble()
-                contador++
+            println("Informe a quantidade em Kg:")
+            qtdAlimento = readln().toDoubleOrNull() ?: throw NumberFormatException()
+            contador++
 
-                val adicionarListaVerdura = Verduras()
-                adicionarListaVerdura.nomeAlimento = nomeAlimento
-                adicionarListaVerdura.qtdAlimento = qtdAlimento
-                listaVerduras.add(adicionarListaVerdura)
+            val adicionarListaVerdura = Verduras()
+            adicionarListaVerdura.nomeAlimento = nomeAlimento
+            adicionarListaVerdura.qtdAlimento = qtdAlimento
+            listaVerduras.add(adicionarListaVerdura)
 
 
         } catch (ex: NumberFormatException) {
-            println(ex.message)
+            println("Para grãos, a quantidade deve ser informada com ponto")
         } catch (ex: UnsupportedOperationException) {
             println("Não é permitido inserir valor vazio")
         }
-        adicionarMaisVerduras()
-        return listaVerduras
     }
 
-    private fun adicionarMaisVerduras() {
+    override fun validarQtdAlimentos() {
+        when (qtdAlimento < 0) {
+            true -> {
+                println("Quantidade negativa não permitido. Digite novamente")
+                inserirAlimento()
 
-        println("Deseja inserir mais verduras? Digite 1- Sim/ 2- Não")
-        newVerdura = readln().toInt()
-        if (newVerdura == 1) {
-            inserirVerduras()
-
-        } else if (newVerdura == 2) {
-            MenuListaCompras().opcaoMenu()
-        } else if (newVerdura != 1 && newVerdura != 2) {
-            println("Número inválido. Digite novamente")
-            println("Deseja inserir mais verduras? Digite 1- Sim/ 2- Não")
-            newVerdura = readln().toInt()
+            }
+            false -> {
+                println("Alimento Registrado com sucesso")
+                val menu = MenuListaCompras()
+                menu.adicionaisMaisAlimentos(Verduras())
+            }
         }
-    }
 
+    }
 
     override fun mostrarLista() {
         println("|-------------------------------------* Lista de verduras *--------------------------------")
@@ -56,6 +53,7 @@ class Verduras() : ListaDeCompras() {
         }
         println("A quantidade de alimentos do tipo verdura a ser comprada é = $contador")
     }
+
 }
 
 
