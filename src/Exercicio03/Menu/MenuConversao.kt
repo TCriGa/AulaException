@@ -9,10 +9,10 @@ import Exercicio03.MSG_PEDINDO_VALOR
 import kotlin.system.exitProcess
 
 class MenuConversao {
-    val dolarAmericano = DolarAmericano()
-    val dolarCanadense = DolarCanadense()
-    val libraEsterlina = LibraEsterlina()
-    val euro = Euro()
+    private val dolarAmericano = DolarAmericano()
+    private val dolarCanadense = DolarCanadense()
+    private val libraEsterlina = LibraEsterlina()
+    private val euro = Euro()
 
     init {
         println("Bem vindo ao sistema de conversão de moeda para Real (R$)")
